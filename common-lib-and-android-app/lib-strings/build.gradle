@@ -1,0 +1,40 @@
+group 'com.example.lib.strings'
+version '1.0'
+
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT'
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+apply plugin: 'kotlin-multiplatform'
+
+kotlin {
+	targets {
+		fromPreset(presets.jvm, 'jvm') {
+			compilations.main {
+				dependencies {
+					implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2-SNAPSHOT'
+				}
+			}
+		}
+		fromPreset(presets.js, 'js') {
+			compilations.main {
+				dependencies {
+					implementation 'org.jetbrains.kotlin:kotlin-stdlib-js:1.2-SNAPSHOT'
+				}
+			}
+		}
+	}
+}
+
+apply plugin: 'maven-publish'

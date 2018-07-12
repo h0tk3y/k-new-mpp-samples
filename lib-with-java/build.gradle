@@ -1,0 +1,40 @@
+group 'com.example.withJava'
+version '1.0'
+
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT'
+	}
+}
+
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'maven-publish'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+kotlin {
+    targets {
+        fromPreset(presets.jvmWithJava, 'jvm')
+        fromPreset(presets.js, 'nodeJs')
+    }
+
+    sourceSets {
+        jvmMain {
+            dependencies {
+                api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
+            }
+        }
+        sharedApi { }
+    }
+
+    configure([targets.jvm, targets.nodeJs]) {
+        compilations.main.source(sourceSets.sharedApi)
+    }
+}

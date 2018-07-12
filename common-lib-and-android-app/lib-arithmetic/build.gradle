@@ -1,0 +1,28 @@
+group 'com.example.lib.arithmetic'
+version '1.0'
+
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT'
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+apply plugin: 'kotlin-multiplatform'
+
+kotlin {
+	targets {
+		fromPreset(presets.jvm, 'jvm')
+		fromPreset(presets.js, 'js')
+	}
+}
+
+apply plugin: 'maven-publish'
