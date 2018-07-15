@@ -32,3 +32,5 @@ kotlin {
         }
     }
 }
+
+kotlin.sourceSets.each { println it.kotlin.srcDirs }

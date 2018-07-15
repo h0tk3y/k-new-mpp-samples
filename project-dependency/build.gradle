@@ -1,0 +1,16 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT'
+	}
+}
+
+allprojects {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+}
