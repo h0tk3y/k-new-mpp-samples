@@ -1,0 +1,50 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT"
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+apply plugin: 'kotlin-multiplatform'
+
+kotlin {
+	sourceSets {
+		commonMain {
+			dependencies {
+				implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+			}
+		}
+		jvmCommonPart {
+			dependencies {
+				implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+			}
+		}
+		jvm8Main {
+			dependencies {
+				implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+			}
+		}
+		jsAndJvmCommonPart { }
+	}
+	targets {
+		fromPreset(presets.jvm, 'jvm6') {
+			compilations.main.source(sourceSets.jvmCommonPart)
+			compilations.main.source(sourceSets.jsAndJvmCommonPart)
+		}
+		fromPreset(presets.jvm, 'jvm8') {
+			compilations.main.source(sourceSets.jvmCommonPart)	
+			compilations.main.source(sourceSets.jsAndJvmCommonPart)
+		}
+		fromPreset(presets.js, 'js') {
+			compilations.main.source(sourceSets.jsAndJvmCommonPart)
+		}
+	}
+}
