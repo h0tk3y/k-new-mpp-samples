@@ -129,7 +129,7 @@ The defaults are:
   
   * (TBD) Default production source sets of all targets depend on `commonMain`; default test source sets of all targets depend on `commonTest`.
 
-* For a compilation `foo` of a target `bar`, a source set `barFoo` is automatically default created and linked to the compilation;
+* For a compilation `foo` of a target `bar`, a source set `barFoo` is automatically created and linked to the compilation;
   * The preset `jvmWithJava` automatically creates and links a Kotlin compilation and a Kotlin source set of the same name to a 
     Java source set;
   * The preset `android` creates a Kotlin source set for each Android source set.
