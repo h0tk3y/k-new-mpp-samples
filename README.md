@@ -54,7 +54,7 @@ Android resources) into a binary form, such as Kotlin metadata, JVM class files,
 
 > Gradle Kotlin DSL is not yet supported, use the Groovy DSL for now
 
-To set up a multiplatform project, one needs to first apply the Kotlin multiplatform plugin:
+To set up a multiplatform project, first apply the Kotlin multiplatform plugin:
 
 ```groovy
 buildscript {
@@ -200,7 +200,7 @@ apply plugin: 'maven-publish`
 
 That's it! Publish it to some repository (e.g. to the local Maven repo with the task `publishToMavenLocal`).
 
-Now, in another project, you can declare a single dependency on the published MPP library:
+Now, in another project, it is enough to declare a single dependency on the published MPP library:
 
 ```groovy
 // in a module 'my-mpp-app'
@@ -211,12 +211,22 @@ kotlin {
                 implementation 'com.example.mpplib:my-mpp-lib:1.0.0'
             }
         }
-    }
+    } 
 }
 ```
 
 Gradle will resolve the dependency on `my-mpp-lib` into compatible variants of each target in `my-mpp-app`. The complete build scripts
 can be found in the [`lib-and-app`](https://github.com/h0tk3y/k-new-mpp-samples/tree/master/lib-and-app) sample.
+
+Even a platform-specific Kotlin source set may depend on a MPP library, which results in the library's compatible variant resolved for the compilation.
+
+A project dependency on another MPP project has the same semantics and is also resolved in a variant-aware way:
+
+```
+dependencies {
+    implementation project(':my-mpp-lib')
+}
+```
 
 ## IDE plugin
 
