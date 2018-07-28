@@ -23,10 +23,9 @@ The key concepts in the new MPP model are the following:
     * imposes restriction on the language settings of interconnected *Kotlin source set*,
     * defines dependency relations of the IDE modules corresponding to the source sets;
 
-* a *Kotlin target* is a part of a Gradle project that can be thought of as build of a complete piece of software targeting a single platform such as JVM 6,
-Android, JS for a browser, iOS, Linux x64 etc;
+* a *Kotlin target* is a part of a Gradle project that can be thought of as a build of a complete piece of software targeting a single platform such as JVM 6, Android, JS for a browser, iOS, Linux x64, etc.;
 
-  * a *target* is the closest thing to a platform module in the 1.2.x MPP design;
+  * a *Kotlin target* is the closest thing to a platform module in the 1.2.x MPP design;
   
   * a *Kotlin target* defines its own specific testing routines, if any, and publications;
 
@@ -118,19 +117,21 @@ kotlin {
 There is a set of *reasonable defaults* aimed to simplify project configuration. Configuring a project beyond these defaults is explained further.
 The defaults are:
 
+* Each *Kotlin source set* has a default Kotlin sources directory `src/<sourceSetName>/kotlin`.
+
 * Two source sets, `commonMain` and `commonTest`, are by default created and added to the compilations of production and test sources,
   respectively, of all targets.
   
-  * (TBD) Production source sets of all targets depend on `commonMain`; test source sets of all targets depend on `commonTest`;
+  * (TBD) Production source sets of all targets depend on `commonMain`; test source sets of all targets depend on `commonTest`.
 
-* For a compilation `foo` of a target `bar`, a source set *barFoo* is by default created and linked to the compilation;
+* For a compilation `foo` of a target `bar`, a source set `barFoo` is automatically default created and linked to the compilation;
   * The preset `jvmWithJava` automatically creates and links a Kotlin compilation and a Kotlin source set of the same name to a 
     Java source set;
-  * The preset `android` creates a Kotlin source set for each Android source set;
+  * The preset `android` creates a Kotlin source set for each Android source set.
 
-* Presets `jvm` and `js` automatically define two compilations, `main` and `test` (with `test` compiled against the outputs of `main`)
+* Presets `jvm` and `js` automatically define two compilations, `main` and `test` (with `test` compiled against the outputs of `main`);
   * The preset `android` defines a Kotlin compilation per Android variant, and links the Kotlin source set related to the Android source sets
-    participating in the Android variant compilation;
+    participating in the Android variant compilation.
     
 How to configure source sets beyond defaults:
 
