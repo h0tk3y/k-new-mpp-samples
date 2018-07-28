@@ -1,6 +1,6 @@
 package com.example.jvm
 
-import com.example.api
+import com.example.api.*
 
 class MyApiImpl : MyApi {
 	override val id: String get() = "jvmImpl"
