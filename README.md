@@ -140,10 +140,10 @@ kotlin {
     sourceSets {
         allJvmMain { /* ... */ }
         jvm6Main {
-            dependsOn allJvmMain // (TBD -- not supported in the current DSL)
+            dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
         }
         jvm8Main {
-            dependsOn allJvmMain // (TBD -- not supported in the current DSL)
+            dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
         }
     }
 }
