@@ -204,6 +204,10 @@ Now, in another project, it is enough to declare a single dependency on the publ
 
 ```groovy
 // in a module 'my-mpp-app'
+repositories {
+   // Add the repository where 'my-mpp-lib' is published, is it mavenLocal()?
+}
+
 kotlin {
     sourceSets {
         commonMain {
