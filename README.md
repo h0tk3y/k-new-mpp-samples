@@ -130,7 +130,7 @@ The defaults are:
   * (TBD) Default production source sets of all targets depend on `commonMain`; default test source sets of all targets depend on `commonTest`.
 
 * For a compilation `foo` of a target `bar`, a source set `barFoo` is automatically created and linked to the compilation;
-  * The preset `jvmWithJava` automatically creates and links a Kotlin compilation and a Kotlin source set of the same name to a 
+  * The preset `jvmWithJava` automatically creates and links a Kotlin compilation and a Kotlin source set for each Java source set, with the same name to that of the 
     Java source set;
   * The preset `android` creates a Kotlin source set for each Android source set.
 
@@ -219,7 +219,7 @@ kotlin {
 }
 ```
 
-Gradle will resolve the dependency on `my-mpp-lib` into compatible variants of each target in `my-mpp-app`. The complete build scripts
+Gradle will resolve the dependency on `my-mpp-lib` into a compatible variant for each target in `my-mpp-app`. The complete build scripts
 can be found in the [`lib-and-app`](https://github.com/h0tk3y/k-new-mpp-samples/tree/master/lib-and-app) sample.
 
 Even a platform-specific Kotlin source set may depend on a MPP library, which results in the library's compatible variant resolved for the compilation.
