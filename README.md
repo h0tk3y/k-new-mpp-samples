@@ -141,15 +141,13 @@ The defaults are:
 How to configure source sets beyond defaults:
 
 ```groovy
-kotlin {
-    sourceSets {
-        allJvmMain { /* ... */ }
-        jvm6Main {
-            dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
-        }
-        jvm8Main {
-            dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
-        }
+kotlin.sourceSets {
+    allJvmMain { /* ... */ }
+    jvm6Main {
+        dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
+    }
+    jvm8Main {
+        dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
     }
 }
 ```
@@ -157,24 +155,23 @@ kotlin {
 If a custom source set is not used as a dependency for any other source set and should only be included into a Kotlin compilation:
 
 ```groovy
-kotlin {
-    sourceSets {
-        allJvmMain { /* ... */ }
+kotlin.sourceSets {
+    allJvmMain { /* ... */ }
+    /* ... */
+}
+
+kotlin.targets {
+    fromPreset(presets.jvm, 'jvm6') {
+        compilations.main {
+            source(sourceSets.allJvmMain)
+        }
         /* ... */
     }
-    targets {
-        fromPreset(presets.jvm, 'jvm6') {
-            compilations.main {
-                source(sourceSets.allJvmMain)
-            }
-            /* ... */
+    fromPreset(presets.jvm, 'jvm8') {
+        compilations.main {
+            source(sourceSets.allJvmMain)
         }
-        fromPreset(presets.jvm, 'jvm8') {
-            compilations.main {
-                source(sourceSets.allJvmMain)
-            }
-            /* ... */
-        }
+        /* ... */
     }
 }
 ```
@@ -208,12 +205,10 @@ repositories {
    // Add the repository where 'my-mpp-lib' is published, is it mavenLocal()?
 }
 
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation 'com.example.mpplib:my-mpp-lib:1.0.0'
-            }
+kotlin.sourceSets {
+    commonMain {
+        dependencies {
+            implementation 'com.example.mpplib:my-mpp-lib:1.0.0'
         }
     } 
 }
