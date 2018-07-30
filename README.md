@@ -124,7 +124,7 @@ The defaults are:
 
 * Each *Kotlin source set* has a default Kotlin sources directory `src/<sourceSetName>/kotlin`.
 
-* Two source sets, `commonMain` and `commonTest`, are by default created and added to the compilations of production and test sources,
+* Two source sets, `commonMain` and `commonTest`, are by default created and added to the default (i.e. not defined by the user) compilations of production and test sources,
   respectively, of all targets.
   
   * (TBD) Default production source sets of all targets depend on `commonMain`; default test source sets of all targets depend on `commonTest`.
