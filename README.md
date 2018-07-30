@@ -20,7 +20,7 @@ The key concepts in the new MPP model are the following:
     
     * sets up declaration visibility,
     * allows providing `actual` declarations for the `expect` ones in another *Kotlin source set*,
-    * imposes restriction on the language settings of interconnected *Kotlin source set*,
+    * imposes restriction on the language settings of interconnected *Kotlin source sets*,
     * defines dependency relations of the IDE modules corresponding to the source sets;
 
 * a *Kotlin target* is a part of a Gradle project that can be thought of as a build of a complete piece of software targeting a single platform such as JVM 6, Android, JS for a browser, iOS, Linux x64, etc.;
@@ -96,7 +96,7 @@ kotlin {
     sourceSets {
         commonMain { // `commonMain` is the default source set added to production compilations of all targets
             dependencies {
-                api 'org.jetbrains.kotlin:kotlin-stdlib:common'
+                api 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
         }
         commonTest { // `commonTest` is the default source set included into all test compilations
