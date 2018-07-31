@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenLocal()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2-SNAPSHOT'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+}
+
+apply plugin: 'kotlin-multiplatform'
+
+def testFrameworkAttribute = Attribute.of('com.example.testFramework', String)
+
+kotlin.sourceSets {
+    junitMain.dependencies {
+        api 'junit:junit:4.12'
+    }
+    testngMain.dependencies {
+        api 'org.testng:testng:6.14.3'
+    }
+}
+
+kotlin {
+    targets {
+        fromPreset(presets.jvm, 'junit') {
+            attributes.attribute(testFrameworkAttribute, 'junit')
+        }
+        fromPreset(presets.jvm, 'testng') {
+            attributes.attribute(testFrameworkAttribute, 'testng')
+        }
+    }
+}
