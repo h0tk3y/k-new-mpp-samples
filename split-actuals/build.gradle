@@ -1,11 +1,12 @@
 buildscript {
+    ext.kotlin_version = '1.2.70-dev-988'
 	repositories {
 		mavenLocal()
 		jcenter()
 		maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 	}
 	dependencies {
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-757"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 	}
 }
 
@@ -25,28 +26,30 @@ kotlin {
 			}
 		}
 		jvmCommonPart {
+            dependsOn commonMain
 			dependencies {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib'
 			}
 		}
+		jsAndJvmCommonPart { }
+        jvm6Main {
+            dependsOn jvmCommonPart
+            dependsOn jsAndJvmCommonPart
+        }
 		jvm8Main {
+            dependsOn jvmCommonPart
+            dependsOn jsAndJvmCommonPart
 			dependencies {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 			}
 		}
-		jsAndJvmCommonPart { }
+        jsMain {
+            dependsOn jsAndJvmCommonPart
+        }
 	}
 	targets {
-		fromPreset(presets.jvm, 'jvm6') {
-			compilations.main.source(sourceSets.jvmCommonPart)
-			compilations.main.source(sourceSets.jsAndJvmCommonPart)
-		}
-		fromPreset(presets.jvm, 'jvm8') {
-			compilations.main.source(sourceSets.jvmCommonPart)	
-			compilations.main.source(sourceSets.jsAndJvmCommonPart)
-		}
-		fromPreset(presets.js, 'js') {
-			compilations.main.source(sourceSets.jsAndJvmCommonPart)
-		}
+		fromPreset(presets.jvm, 'jvm6')
+		fromPreset(presets.jvm, 'jvm8')
+		fromPreset(presets.js, 'js')
 	}
 }

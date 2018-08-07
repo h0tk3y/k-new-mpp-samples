@@ -1,0 +1,10 @@
+includeBuild 'split-actuals'
+includeBuild 'simple-app-with-android'
+includeBuild 'project-dependency'
+includeBuild 'multiple-targets-same-platform'
+includeBuild 'lib-with-tests'
+includeBuild 'lib-with-java'
+includeBuild 'lib-and-app'
+includeBuild 'common-lib-and-android-app'
+
+enableFeaturePreview 'GRADLE_METADATA'
