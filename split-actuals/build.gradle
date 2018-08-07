@@ -19,6 +19,11 @@ repositories {
 apply plugin: 'kotlin-multiplatform'
 
 kotlin {
+	targets {
+		fromPreset(presets.jvm, 'jvm6')
+		fromPreset(presets.jvm, 'jvm8')
+		fromPreset(presets.js, 'js')
+	}
 	sourceSets {
 		commonMain {
 			dependencies {
@@ -31,14 +36,16 @@ kotlin {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib'
 			}
 		}
-		jsAndJvmCommonPart { }
-        jvm6Main {
-            dependsOn jvmCommonPart
-            dependsOn jsAndJvmCommonPart
-        }
+		jsAndJvmCommonPart { 
+			dependsOn commonMain
+		}
+		jvm6Main {
+			dependsOn jvmCommonPart
+			dependsOn jsAndJvmCommonPart
+		}
 		jvm8Main {
-            dependsOn jvmCommonPart
-            dependsOn jsAndJvmCommonPart
+			dependsOn jvmCommonPart
+			dependsOn jsAndJvmCommonPart
 			dependencies {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 			}
