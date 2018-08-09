@@ -19,44 +19,39 @@ repositories {
 apply plugin: 'kotlin-multiplatform'
 
 kotlin {
-	targets {
-		fromPreset(presets.jvm, 'jvm6')
-		fromPreset(presets.jvm, 'jvm8')
-		fromPreset(presets.js, 'js')
+    targets {
+        fromPreset(presets.jvm, 'jvm6')
+        fromPreset(presets.jvm, 'jvm8')
+        fromPreset(presets.js, 'js')
+    }
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+            }
 	}
-	sourceSets {
-		commonMain {
-			dependencies {
-				implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
-			}
-		}
-		jvmCommonPart {
+        jvmCommonPart {
+	    dependsOn commonMain
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
+        jsAndJvmCommonPart { 
             dependsOn commonMain
-			dependencies {
-				implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-			}
-		}
-		jsAndJvmCommonPart { 
-			dependsOn commonMain
-		}
-		jvm6Main {
-			dependsOn jvmCommonPart
-			dependsOn jsAndJvmCommonPart
-		}
-		jvm8Main {
-			dependsOn jvmCommonPart
-			dependsOn jsAndJvmCommonPart
-			dependencies {
-				implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-			}
-		}
+        }
+        jvm6Main {
+            dependsOn jvmCommonPart
+            dependsOn jsAndJvmCommonPart
+        }
+        jvm8Main {
+            dependsOn jvmCommonPart
+            dependsOn jsAndJvmCommonPart
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+            }
+        }
         jsMain {
             dependsOn jsAndJvmCommonPart
         }
-	}
-	targets {
-		fromPreset(presets.jvm, 'jvm6')
-		fromPreset(presets.jvm, 'jvm8')
-		fromPreset(presets.js, 'js')
-	}
+    }
 }
