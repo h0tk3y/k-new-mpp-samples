@@ -14,9 +14,9 @@ The key concepts in the new MPP model are the following:
 
   * during an import into an IDE, a *Kotlin source set* becomes an *IDE module*;
   
-  * (TBD) the language settings of a *Kotlin source set* define the language and API versions, language features etc.
+  * the language settings of a *Kotlin source set* define the language and API versions, language features etc.
   
-  * (TBD) *Kotlin source sets* may be connected with the *depends on* relation, which 
+  * *Kotlin source sets* may be connected with the *depends on* relation, which 
     
     * sets up declaration visibility,
     * allows providing `actual` declarations for the `expect` ones in another *Kotlin source set*,
@@ -127,7 +127,7 @@ The defaults are:
 * Two source sets, `commonMain` and `commonTest`, are by default created and added to the default (i.e. not defined by the user) compilations of production and test sources,
   respectively, of all targets.
   
-  * (TBD) Default production source sets of all targets depend on `commonMain`; default test source sets of all targets depend on `commonTest`.
+  * Default production source sets of all targets depend on `commonMain`; default test source sets of all targets depend on `commonTest`.
 
 * For a compilation `foo` of a target `bar`, a source set `barFoo` is automatically created and linked to the compilation;
   * The preset `jvmWithJava` automatically creates and links a Kotlin compilation and a Kotlin source set for each Java source set, with the same name to that of the 
@@ -175,6 +175,33 @@ kotlin.targets {
     }
 }
 ```
+
+## Language settings
+
+Each source set may specify its language settings with the following DSL, with all of the items being optional:
+
+```groovy
+kotlin.sourceSets {
+    foo {
+        languageSettings {
+            languageVersion = '1.2'
+            apiVersion = '1.2'
+            progressiveMode = true
+            enableLanguageFeature('InlineClasses')
+        }
+    }
+}
+```
+
+These settings affect the behavior of analysis:
+
+* (TBD) In the IDE, each module created from a source set uses takes its language settings into the facet
+* During a Gradle build, the language settings of the default source set created for a compilation are used for the Kotlin compilation task (with the task's own `kotlinOptions` having higher priority on language and API versions)
+
+The language settings are checked for consistency between source sets depending on each other. Namely, if `foo` depends on `bar`:
+
+* `foo` should set `languageVersion` and `apiVersion` no less than those of `bar`
+* `foo` should enable all **unstable** language features that `bar` enabled (but there's no such requirement for bugfix features)
 
 ## Publishing and MPP library dependencies
 
