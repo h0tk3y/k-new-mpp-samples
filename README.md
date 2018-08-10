@@ -144,10 +144,9 @@ How to configure source sets beyond defaults:
 kotlin.sourceSets {
     allJvmMain { /* ... */ }
     jvm6Main {
-        dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
-    }
+        dependsOn allJvmMain
     jvm8Main {
-        dependsOn allJvmMain // (TBD -- not supported in the current DSL, see the alternative below)
+        dependsOn allJvmMain
     }
 }
 ```
@@ -202,6 +201,8 @@ The language settings are checked for consistency between source sets depending 
 
 * `foo` should set `languageVersion` and `apiVersion` no less than those of `bar`
 * `foo` should enable all **unstable** language features that `bar` enabled (but there's no such requirement for bugfix features)
+
+To ensure consistency between source sets added to a compilation, additional checks are made as if those depended on the compilation's default source set.
 
 ## Publishing and MPP library dependencies
 
