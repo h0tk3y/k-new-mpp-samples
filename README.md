@@ -199,8 +199,9 @@ These settings affect the behavior of analysis:
 
 The language settings are checked for consistency between source sets depending on each other. Namely, if `foo` depends on `bar`:
 
-* `foo` should set `languageVersion` and `apiVersion` no less than those of `bar`
+* `foo` should set `languageVersion` no less than that of `bar`
 * `foo` should enable all **unstable** language features that `bar` enabled (but there's no such requirement for bugfix features)
+* `apiVersion` and bugfix language features can be set arbitrarily
 
 To ensure consistency between source sets added to a compilation, additional checks are made as if those depended on the compilation's default source set.
 
