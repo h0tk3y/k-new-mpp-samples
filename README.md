@@ -258,6 +258,7 @@ dependencies {
 
 ## IDE plugin
 
-A custom build of an IntelliJ IDEA plugin with the new MPP import support can be found [here](https://teamcity.jetbrains.com/viewLog.html?buildId=1541633&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts).
-Note that it does not correctly analyze `expect`/`actual` declarations because of the source set dependencies not implemented yet.
+Grab an IDE plugin build from TeamCity: [(link)](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts). Note that the new MPP support is now work-in-progress, and some features are missing. Some of the known issues are:
 
+* `expect`/`actual` matchinig between source sets not working
+* dependencies not imported for some (non-platform-specific) source sets
