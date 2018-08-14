@@ -157,6 +157,7 @@ kotlin.sourceSets {
     allJvmMain { /* ... */ }
     jvm6Main {
         dependsOn allJvmMain
+    }    
     jvm8Main {
         dependsOn allJvmMain
     }
