@@ -1,3 +1,3 @@
 actual fun b() { }
 
-actual fun jvmVersionDependentFun(a) = f"jvm6"
+actual fun jvmVersionDependentFun() = "jvm6"
