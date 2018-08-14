@@ -11,7 +11,7 @@ interface Greeting {
 	fun showGreeting(user: User): Unit
 }
 
-expect class Greeter
+expect class Greeter() : Greeting
 
 fun runGreeter(): Unit {
 	Greeter().showGreeting(getCurrentUser())
