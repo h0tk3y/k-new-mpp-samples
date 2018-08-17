@@ -256,6 +256,22 @@ dependencies {
 }
 ```
 
+## Metadata publishing for common sources
+
+To provide tooling support for libraries code, we build and publish so-called *Kotlin metadata* containing serialized declarations from the sources. The metadata artifacts are used by the IDE for analysis, and by the Gradle plugin for producing metadata of other projects.
+
+The Kotlin metadata artifact of a project is published along with the other artifacts, but in a separate variant, meaning that it can be resolved in a configuration with matching attributes (`org.jetbrains.kotlin.platform.type = common`).
+
+Each Kotlin source set has several Gradle configurations which can be resolved to retrieve the metadata of its dependencies, such as `apiDependenciesMetadata` for `api` dependencies, `implementationDependenciesMetadata` for `implementation` etc.
+
+A Kotlin target by the name *metadata* is responsible for building and publishing the metadata artifact.
+
+We are going to implement this in two steps.
+
+* The initial implementation only produces Kotlin metadata for sources in the `commonMain` source set. This limits tooling support for non-default source sets in common sources of dependent projects, more specifically, declarations from source sets other than `commonMain` and the platform specific source sets are not going to be analyzed correctly at first.
+
+* (TBD) Afterwards, we will improve the mechanism by producing metadata for all source sets in a project and determining which source sets from a library are relevant during the IDE import.
+
 ## IDE plugin
 
 Grab an IDE plugin build from TeamCity: [(link)](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts). Note that the new MPP support is now work-in-progress, and some features are missing. Some of the known issues are:
