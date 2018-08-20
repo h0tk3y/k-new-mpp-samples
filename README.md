@@ -42,13 +42,18 @@ Android resources) into a binary form, such as Kotlin metadata, JVM class files,
 * a *Kotlin target preset* is a way to create a *Kotlin target*; it is enough to provide just a name to create a *target* from a *preset*, but
   the resulting target may be further configured through its (target-specific) API.
   
-  * Currently, there are several presets in the `kotlin-gradle-plugin` module, and more will be added by the Kotlin Native Gradle plugin:
+  * Currently, there are several presets in the `kotlin-gradle-plugin` module:
   
-    * `jvm` is a basic preset for Kotlin/JVM. *NB:* it does not compile Java nor apply the Gradle `java` plugin;
-    * `jvmWithJava` is a preset for JVM that is coupled with the Gradle `java` plugin and defines a *Kotlin compilation* per Java source set;
+    * `jvm` is a basic preset for Kotlin/JVM. *NB:* it does not compile Java nor apply the Gradle `java` plugin as of now, but it should be possible in the future;
+    * `jvmWithJava` is a preset for JVM that is coupled with the Gradle `java` plugin and defines a *Kotlin compilation* per Java source set, the existence of this preset is a workaround for now, it is going to be removed as soon as `jvm` gets support for Java (TBD);
     * `js` is a basic preset for Kotlin/JS;
-    * `android` is a preset for Android applications and libraries, it requires one of the Android Gradle plugins to be applied and therefore
-      conflicts with the `jvmWithJava` preset;
+    * `android` is a preset for Android applications and libraries, it requires one of the Android Gradle plugins to be applied and therefore conflicts with the `jvmWithJava` preset;
+    * Kotlin/Native presets (see [the notes below](#notes-on-kotlin-native-support)):
+        * `androidNativeArm32` and `androidNativeArm64` for Android NDK
+        * `iosArm32`, `iosArm64`, `iosX64` for iOS
+        * `linuxArm32Hfp`, `linuxMips32`, `linuxMipsel32`, `linuxX64` for Linux
+        * `macosX64` for MacOS
+        * `mingwX64` for Windows
   
 ## Gradle plugin and DSL
 
@@ -175,6 +180,22 @@ kotlin.targets {
 }
 ```
 
+Hint: you can configure multiple named entities in a container using the Gradle's [`configure([...]) { ... }`](https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#configure-java.lang.Iterable-groovy.lang.Closure-) function:
+
+```groovy
+kotlin.targets {
+    fromPreset(presets.jvm, 'junit') { /* ... */ }
+    fromPreset(presets.jvm, 'testng') { /* ... */ }
+    configure([junit, testng]) { 
+        tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
+            jvmTarget = '1.8'
+        }
+    }
+}
+```
+
+
+
 ## Language settings
 
 Each source set may specify its language settings with the following DSL, with all of the items being optional:
@@ -271,6 +292,26 @@ We are going to implement this in two steps.
 * The initial implementation only produces Kotlin metadata for sources in the `commonMain` source set. This limits tooling support for non-default source sets in common sources of dependent projects, more specifically, declarations from source sets other than `commonMain` and the platform specific source sets are not going to be analyzed correctly at first.
 
 * (TBD) Afterwards, we will improve the mechanism by producing metadata for all source sets in a project and determining which source sets from a library are relevant during the IDE import.
+
+## Notes on Kotlin/Native support
+
+* Some targets may only be built with an appropriate host (e.g. a Windows machine cannot build Linux or iOS native artifacts). An unsupported target is skipped during builds;
+
+    * (TBD) During publishing with the `maven-publish` plugin, only artifacts for targets supported by the host should be published. Currently, publishing from a host that does not support some of the targets erases their artifacts from the Gradle metadata.
+
+* To build an executable for a Kotlin/Native target, say, a `linuxX64` one, add the following to the build script:
+
+    ```groovy
+    import org.jetbrains.kotlin.gradle.plugin.mpp.NativeOutputKind
+    
+    /* ... */
+    
+    kotlin.targets {
+        fromPreset(presets.linuxX64, 'foo') {
+            compilations.main.outputKinds += NativeOutputKind.EXECUTABLE
+        }
+    }
+    ```
 
 ## IDE plugin
 
