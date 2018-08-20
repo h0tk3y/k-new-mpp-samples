@@ -48,7 +48,7 @@ Android resources) into a binary form, such as Kotlin metadata, JVM class files,
     * `jvmWithJava` is a preset for JVM that is coupled with the Gradle `java` plugin and defines a *Kotlin compilation* per Java source set, the existence of this preset is a workaround for now, it is going to be removed as soon as `jvm` gets support for Java (TBD);
     * `js` is a basic preset for Kotlin/JS;
     * `android` is a preset for Android applications and libraries, it requires one of the Android Gradle plugins to be applied and therefore conflicts with the `jvmWithJava` preset;
-    * Kotlin/Native presets (see [the notes below](#notes-on-kotlin-native-support)):
+    * Kotlin/Native presets (see [the notes below](#notes-on-kotlinnative-support)):
         * `androidNativeArm32` and `androidNativeArm64` for Android NDK
         * `iosArm32`, `iosArm64`, `iosX64` for iOS
         * `linuxArm32Hfp`, `linuxMips32`, `linuxMipsel32`, `linuxX64` for Linux
