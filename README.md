@@ -51,8 +51,8 @@ Android resources) into a binary form, such as Kotlin metadata, JVM class files,
   
   * Currently, there are several presets in the `kotlin-gradle-plugin` module:
   
-    * `jvm` is a basic preset for Kotlin/JVM. *NB:* it does not compile Java nor apply the Gradle `java` plugin as of now, but it should be possible in the future;
-    * `jvmWithJava` is a preset for JVM that is coupled with the Gradle `java` plugin and defines a *Kotlin compilation* per Java source set, the existence of this preset is a workaround for now, it is going to be removed as soon as `jvm` gets support for Java (TBD);
+    * `jvm` is a basic preset for Kotlin/JVM. *NB:* it does not compile Java nor apply the Gradle `java` plugin;
+    * `jvmWithJava` is a preset for JVM that is coupled with the Gradle `java` plugin and defines a *Kotlin compilation* per Java source set; this preset is likely to be removed in the future once `jvm` gets support for compiling Java;
     * `js` is a basic preset for Kotlin/JS;
     * `android` is a preset for Android applications and libraries, it requires one of the Android Gradle plugins to be applied and therefore conflicts with the `jvmWithJava` preset;
     * Kotlin/Native presets (see [the notes below](#notes-on-kotlinnative-support)):
