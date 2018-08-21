@@ -303,7 +303,7 @@ We are going to implement this in two steps.
 
 ## Notes on Kotlin/Native support
 
-* Some targets may only be built with an appropriate host (e.g. a Windows machine cannot build Linux or iOS native artifacts). An unsupported target is skipped during builds;
+* Some targets [may only be built with an appropriate host](https://github.com/JetBrains/kotlin/blob/2251440f04e5bdb4bdfef2dc47c30356b7f39411/konan/utils/src/org/jetbrains/kotlin/konan/target/KonanTarget.kt#L168) (e.g. a Windows machine cannot build Linux or iOS native artifacts). An unsupported target is skipped during builds.
 
     * (TBD) During publishing with the `maven-publish` plugin, only artifacts for targets supported by the host should be published. Currently, publishing from a host that does not support some of the targets erases their artifacts from the Gradle metadata.
 
