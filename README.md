@@ -323,7 +323,7 @@ We are going to implement this in two steps.
 
 ## IDE plugin
 
-Grab an IDE plugin build from TeamCity: [(link)](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts). Note that the new MPP support is now work-in-progress, and some features are missing.
+Download the IDE plugin build from TeamCity: ([link, ](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts)login as guest if you have no account). Then install the plugin from disk in IntelliJ IDEA.
 
 ## Known issues
 
