@@ -1,7 +1,6 @@
 # Kotlin New Multiplatform Projects 
 
-The new multiplatform projects all use a single plugin, `kotlin-multiplatform` (a.k.a. `org.jetbrains.kotlin.multiplatform`) and are then
-configured using the special DSL.
+This repository contains general information and samples for the new model of Kotlin Multiplatform projects.
 
 ## Goals
 
@@ -63,6 +62,9 @@ Android resources) into a binary form, such as Kotlin metadata, JVM class files,
         * `mingwX64` for Windows
   
 ## Gradle plugin and DSL
+
+The new multiplatform projects all use a single plugin, `kotlin-multiplatform` (a.k.a. `org.jetbrains.kotlin.multiplatform`) and are then
+configured using the special DSL.
 
 > Gradle Kotlin DSL is not yet supported, use the Groovy DSL for now
 
