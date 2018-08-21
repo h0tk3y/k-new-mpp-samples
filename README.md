@@ -3,6 +3,13 @@
 The new multiplatform projects all use a single plugin, `kotlin-multiplatform` (a.k.a. `org.jetbrains.kotlin.multiplatform`) and are then
 configured using the special DSL.
 
+## Goals
+
+1. Make project configuration more concise: allow to define all target platforms in a single Gradle subproject 
+2. Enable more granular code sharing between platforms. Previously there was only one common part shared between all platforms (e.g one common part shared between JVM, JS and Native). Now it is possible to share a part of code between some platforms (e.g. there can be one part for JVM, JS and Native and one part shared between JVM and JS).
+3. Enable publishing of MPP libraries.
+4. Unify Kotlin/Native and non-Native DSLs.
+
 ## Design
 
 The key concepts in the new MPP model are the following:
