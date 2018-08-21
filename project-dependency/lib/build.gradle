@@ -3,6 +3,9 @@ apply plugin: 'kotlin-multiplatform'
 kotlin {
 	sourceSets {
 		commonMain {
+            languageSettings {
+                progressiveMode = true
+            }
 			dependencies {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
 			}
@@ -22,4 +25,13 @@ kotlin {
 		fromPreset(presets.jvm, 'jvm')
 		fromPreset(presets.js, 'js')
 	}
+}
+
+println 'source set kotlin srcDirs:\n'
+kotlin.sourceSets.each { sourceSet ->
+    println '=== ' + sourceSet.name
+    sourceSet.kotlin.srcDirs.each { srcDir -> 
+        println '  * ' + srcDir
+    }
+    println '\n'
 }
