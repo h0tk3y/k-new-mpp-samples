@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeOutputKind
+
 buildscript {
 	repositories {
 		mavenLocal()
@@ -29,6 +31,11 @@ kotlin {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
             }
         }
+        jvm6Main {
+            dependsOn allJvm
+        }
+        jvm6Main.dependsOn allJvm
+        jvm8Main.dependsOn allJvm
     }
 
     targets {
@@ -39,5 +46,13 @@ kotlin {
              compilations.main.source(sourceSets.allJvm)
         }
         fromPreset(presets.js, 'nodeJs')
+
+        fromPreset(presets.linuxX64, 'linux')
+        fromPreset(presets.mingwX64, 'windows')
+        fromPreset(presets.macosX64, 'mac')
+
+        configure([linux, windows, mac]) {
+            compilations.main.outputKinds += NativeOutputKind.EXECUTABLE
+        }
     }
 }

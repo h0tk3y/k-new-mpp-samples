@@ -25,12 +25,25 @@ kotlin {
     targets {
         fromPreset(presets.jvm, 'jvm6')
         fromPreset(presets.js, 'nodeJs')
+        fromPreset(presets.mingwX64, 'windows')
+        fromPreset(presets.linuxX64, 'linux')
+        fromPreset(presets.macosX64, 'mac')
     }
     sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+            }
+        }
         jvm6Main {
             dependencies {
                 api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
             }
+        }
+        nativeCommonMain { }
+
+        configure([linuxMain, windowsMain, macMain]) {
+            dependsOn nativeCommonMain
         }
     }
 }

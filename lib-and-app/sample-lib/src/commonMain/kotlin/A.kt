@@ -1,3 +1,5 @@
 package com.github.h0tk3y.kotlinMppDemo.lib
 
 fun id(x: Int): Int = x
+
+expect val platformName: String

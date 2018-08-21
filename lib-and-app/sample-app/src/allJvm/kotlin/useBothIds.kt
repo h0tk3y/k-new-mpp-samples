@@ -1,7 +1,6 @@
 package com.github.h0tk3y.kotlinMppDemo.app
 
-import com.github.h0tk3y.kotlinMppDemo.lib.id
-import com.github.h0tk3y.kotlinMppDemo.lib.x
+import com.github.h0tk3y.kotlinMppDemo.lib.*
 
 fun main(args: Array<String>) {
     println(id(123))
