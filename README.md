@@ -325,7 +325,7 @@ We are going to implement this in two steps.
 
 ## IDE plugin
 
-Download the IDE plugin build from TeamCity: ([link, ](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts)login as guest if you have no account). Then install the plugin from disk in IntelliJ IDEA.
+Download the IDE plugin build from TeamCity: ([link](https://teamcity.jetbrains.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts), log in as guest if you have no account). Then install the plugin from disk in IntelliJ IDEA.
 
 ## Known issues
 
