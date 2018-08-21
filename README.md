@@ -323,7 +323,8 @@ We are going to implement this in two steps.
 
 ## IDE plugin
 
-Grab an IDE plugin build from TeamCity: [(link)](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts). Note that the new MPP support is now work-in-progress, and some features are missing. Some of the known issues are:
+Grab an IDE plugin build from TeamCity: [(link)](https://teamcity.jetbrains.com/viewLog.html?buildId=lastFinished&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts). Note that the new MPP support is now work-in-progress, and some features are missing.
 
-* `expect`/`actual` matchinig between source sets not working
-* dependencies not imported for some (non-platform-specific) source sets
+## Known issues
+
+Use this search query in the Kotlin YouTrack: [(link)](https://youtrack.jetbrains.com/issues/KT?q=%23new-multiplatform%20)
