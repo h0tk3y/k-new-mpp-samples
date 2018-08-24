@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.70-dev-1596'
+    ext.kotlin_version = '1.2.70-dev-1648'
     repositories {
         mavenLocal()
         jcenter()
