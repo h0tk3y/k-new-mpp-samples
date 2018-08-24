@@ -2,14 +2,14 @@ group 'com.example'
 version '1.0'
 
 buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
-		maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411"
-	}
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411"
+    }
 }
 
 apply plugin: 'kotlin-multiplatform'
@@ -23,32 +23,42 @@ repositories {
 
 kotlin {
     targets {
-    	fromPreset(presets.jvm, 'jvmWithoutJava')
-        fromPreset(presets.jvmWithJava, 'jvmWithJava')	
+        fromPreset(presets.jvm, 'jvmWithoutJava')
+        fromPreset(presets.jvmWithJava, 'jvmWithJava')
         fromPreset(presets.js, 'js')
     }
     sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
         commonTest {
-        	dependencies {
-        		implementation 'org.jetbrains.kotlin:kotlin-test-common'
-        		implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-        	}
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+        main {
+            dependencies {
+                dependsOn commonMain
+            }
         }
         configure([main, jvmWithoutJavaMain]) {
-        	dependencies {
-        		implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-        	}
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
         }
         configure([test, jvmWithoutJavaTest]) {
-        	dependencies {
-        		implementation 'org.jetbrains.kotlin:kotlin-test'
-        		implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-        	}
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+            }
         }
         jsTest {
-        	dependencies {
-        		implementation 'org.jetbrains.kotlin:kotlin-test-js'
-        	}
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+            }
         }
     }
 }

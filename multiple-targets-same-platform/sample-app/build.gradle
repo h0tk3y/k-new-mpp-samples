@@ -33,5 +33,6 @@ kotlin {
 kotlin.sourceSets {
     commonMain.dependencies {
         implementation project(':sample-lib')
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib'
     }
 }

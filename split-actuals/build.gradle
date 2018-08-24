@@ -1,19 +1,19 @@
 buildscript {
     ext.kotlin_version = '1.2.70-dev-1596'
-	repositories {
-		mavenLocal()
-		jcenter()
-		maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-	}
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 repositories {
-	mavenLocal()
-	jcenter()
-	maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    mavenLocal()
+    jcenter()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 }
 
 apply plugin: 'kotlin-multiplatform'
@@ -29,16 +29,16 @@ kotlin {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
-	}
+        }
         jvmCommonPart {
 	    dependsOn commonMain
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib'
             }
         }
-        jsAndJvmCommonPart { 
+        jsAndJvmCommonPart {
             dependsOn commonMain
-	    dependencies {
+            dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib'
             }
         }

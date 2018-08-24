@@ -1,3 +1,3 @@
 package com.example
 
-expect annotation class Test
+expect annotation class Test()

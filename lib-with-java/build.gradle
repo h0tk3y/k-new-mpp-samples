@@ -38,7 +38,11 @@ kotlin {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
             }
         }
-        sharedApi { }
+        sharedApi {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
     }
 
     configure([targets.jvm, targets.nodeJs]) {
