@@ -20,6 +20,9 @@ apply plugin: 'kotlin-multiplatform'
 def testFrameworkAttribute = Attribute.of('com.example.testFramework', String)
 
 kotlin.sourceSets {
+    commonMain.dependencies {
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    }
     junitMain.dependencies {
         api 'junit:junit:4.12'
     }

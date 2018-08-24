@@ -2,41 +2,48 @@ group 'com.example.lib.strings'
 version '1.0'
 
 buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
-		maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411'
-	}
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411'
+    }
 }
 
 repositories {
-	mavenLocal()
-	jcenter()
-	maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    mavenLocal()
+    jcenter()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 }
 
 apply plugin: 'kotlin-multiplatform'
 
 kotlin {
-	targets {
-		fromPreset(presets.jvm, 'jvm') {
-			compilations.main {
-				dependencies {
-					implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.70-dev-1411'
-				}
-			}
-		}
-		fromPreset(presets.js, 'js') {
-			compilations.main {
-				dependencies {
-					implementation 'org.jetbrains.kotlin:kotlin-stdlib-js:1.2.70-dev-1411'
-				}
-			}
-		}
-	}
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
+    }
+    targets {
+        fromPreset(presets.jvm, 'jvm') {
+            compilations.main {
+                dependencies {
+                    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.70-dev-1411'
+                }
+            }
+        }
+        fromPreset(presets.js, 'js') {
+            compilations.main {
+                dependencies {
+                    implementation 'org.jetbrains.kotlin:kotlin-stdlib-js:1.2.70-dev-1411'
+                }
+            }
+        }
+    }
 }
 
 apply plugin: 'maven-publish'

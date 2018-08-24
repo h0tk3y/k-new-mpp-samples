@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeOutputKind
 
 buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
+    repositories {
+        mavenLocal()
+        jcenter()
         maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411"
-	}
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411"
+    }
 }
 
 apply plugin: 'kotlin-multiplatform'
@@ -24,16 +24,14 @@ kotlin {
         commonMain {
             dependencies {
                 implementation 'com.example:sample-lib:1.0'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
             }
         }
         allJvm {
-	    dependsOn commonMain
+            dependsOn commonMain
             dependencies {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
             }
-        }
-        jvm6Main {
-            dependsOn allJvm
         }
         jvm6Main.dependsOn allJvm
         jvm8Main.dependsOn allJvm
@@ -44,7 +42,7 @@ kotlin {
             compilations.main.source(sourceSets.allJvm)
         }
         fromPreset(presets.jvm, 'jvm8') {
-             compilations.main.source(sourceSets.allJvm)
+            compilations.main.source(sourceSets.allJvm)
         }
         fromPreset(presets.js, 'nodeJs')
 

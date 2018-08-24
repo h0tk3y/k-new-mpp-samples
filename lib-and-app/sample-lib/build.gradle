@@ -2,14 +2,14 @@ group 'com.example'
 version '1.0'
 
 buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
+    repositories {
+        mavenLocal()
+        jcenter()
         maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411'
-	}
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1411'
+    }
 }
 
 apply plugin: 'kotlin-multiplatform'
