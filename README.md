@@ -77,7 +77,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
     }
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plguin:1.3.0-dev-1`
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plguin:1.3.0-dev-1'
     }
 }
 
