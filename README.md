@@ -166,30 +166,6 @@ kotlin.sourceSets {
 }
 ```
 
-If a custom source set is not used as a dependency for any other source set and should only be included into a Kotlin compilation:
-
-```groovy
-kotlin.sourceSets {
-    allJvmMain { /* ... */ }
-    /* ... */
-}
-
-kotlin.targets {
-    fromPreset(presets.jvm, 'jvm6') {
-        compilations.main {
-            source(sourceSets.allJvmMain)
-        }
-        /* ... */
-    }
-    fromPreset(presets.jvm, 'jvm8') {
-        compilations.main {
-            source(sourceSets.allJvmMain)
-        }
-        /* ... */
-    }
-}
-```
-
 Hint: you can configure multiple named entities in a container using the Gradle's [`configure([...]) { ... }`](https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html#configure-java.lang.Iterable-groovy.lang.Closure-) function:
 
 ```groovy
