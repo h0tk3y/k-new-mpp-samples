@@ -298,6 +298,16 @@ We are going to implement this in two steps.
         }
     }
     ```
+    
+* Building an iOS framework is done by specifying the `FRAMEWORK` output kind in the corresponding target's compilation:
+
+    ```groovy
+    kotlin.targets {
+        fromPreset(preset.iosX64, 'ios') {
+            compilations.main.outputKind('FRAMEWORK')
+        }
+    }
+    ```
 
 ## IDE plugin
 
