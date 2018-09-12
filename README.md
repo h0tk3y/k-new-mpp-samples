@@ -201,7 +201,7 @@ kotlin.sourceSets {
 
 These settings affect the behavior of analysis:
 
-* (TBD) In the IDE, each module created from a source set uses takes its language settings into the facet
+* In the IDE, each module created from a source set uses takes its language settings into the facet
 * During a Gradle build, the language settings of the default source set created for a compilation are used for the Kotlin compilation task (with the task's own `kotlinOptions` having higher priority on language and API versions)
 
 The language settings are checked for consistency between source sets depending on each other. Namely, if `foo` depends on `bar`:
@@ -283,18 +283,14 @@ We are going to implement this in two steps.
 
 * Some targets [may only be built with an appropriate host](https://github.com/JetBrains/kotlin/blob/2251440f04e5bdb4bdfef2dc47c30356b7f39411/konan/utils/src/org/jetbrains/kotlin/konan/target/KonanTarget.kt#L168) (e.g. a Windows machine cannot build Linux or iOS native artifacts). An unsupported target is skipped during builds.
 
-    * (TBD) During publishing with the `maven-publish` plugin, only artifacts for targets supported by the host should be published. Currently, publishing from a host that does not support some of the targets erases their artifacts from the Gradle metadata.
+    * During publishing with the `maven-publish` plugin, only artifacts for targets supported by the host should be published. Currently, publishing from a host that does not support some of the targets erases their artifacts from the Gradle metadata.
 
 * To build an executable for a Kotlin/Native target, say, a `linuxX64` one, add the following to the build script:
 
     ```groovy
-    import org.jetbrains.kotlin.gradle.plugin.mpp.NativeOutputKind
-    
-    /* ... */
-    
     kotlin.targets {
         fromPreset(presets.linuxX64, 'foo') {
-            compilations.main.outputKinds += NativeOutputKind.EXECUTABLE
+            compilations.main.outputKinds('EXECUTABLE')
         }
     }
     ```
