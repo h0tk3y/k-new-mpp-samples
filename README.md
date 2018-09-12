@@ -300,7 +300,7 @@ We are going to implement this in two steps.
     ```groovy
     kotlin.targets {
         fromPreset(preset.iosX64, 'ios') {
-            compilations.main.outputKind('FRAMEWORK')
+            compilations.main.outputKinds('FRAMEWORK')
         }
     }
     ```
