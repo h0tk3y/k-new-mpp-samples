@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
         }
     }
@@ -32,14 +32,14 @@ kotlin {
         fromPreset(presets.jvm, 'jvm') {
             compilations.main {
                 dependencies {
-                    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.70-dev-1411'
+                    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
                 }
             }
         }
         fromPreset(presets.js, 'js') {
             compilations.main {
                 dependencies {
-                    implementation 'org.jetbrains.kotlin:kotlin-stdlib-js:1.2.70-dev-1411'
+                    implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
                 }
             }
         }
