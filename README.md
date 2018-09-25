@@ -305,6 +305,96 @@ We are going to implement this in two steps.
     }
     ```
 
+## Some recipes
+
+### Set JS/JVM kotlinOptions
+
+For example, to set the generated moduleKind to "UMD", and do not emit sourceMaps or metaInfo:
+
+```groovy
+kotlin {
+    targets {
+        fromPreset(presets.js, 'js')
+
+        configure([js]) {
+            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = false
+                metaInfo = false
+            }
+        }
+    }
+}
+```
+
+### Using special artifacts for the JVM
+
+For example, to create gradle tests using gradleTestKit:
+
+`kotlin.sourceSets.jvmTest { dependencies.implementation gradleTestKit() }` would produce:
+> Could not find method gradleTestKit() for arguments [] on object of type org.jetbrains.kotlin.gradle.plugin.mpp.DefaultKotlinDependencyHandler.
+
+Instead, you can use a global `dependencies` block with `jvmTestImplementation`:
+
+```groovy
+dependencies {
+    jvmTestImplementation gradleTestKit()
+}
+```
+
+### CInterop
+
+To call C from Kotlin, you can use CInterop:
+
+```groovy
+kotlin {
+    targets {
+        fromPreset(presets.macosX64, 'macosX64') {
+            compilations.main {
+                cinterops {
+                    myInteropName {
+                        packageName 'example.cinterop.stdio'
+                        extraOpts '-nodefaultlibs'
+                        // defFile 'custom/path/to/def/file.def' // by default: src/nativeInterop/cinterop/myInteropName.def
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+Check the [complete CInterop sample](https://github.com/h0tk3y/k-new-mpp-samples/tree/master/native-cinterop).
+
+Note that as for `rc-57`, you cannot have projects using cinterops, without additionally having code (even if is not referenced).
+Otherwise you would get an error like `exception: java.lang.IllegalStateException: Could not find "project" in [...]`.
+
+### Referencing a multiplatform module from a non-multiplatform one:
+
+You can mix multiplatform modules (using the `kotlin-multiplatform`) plugin with other projects not using it (using `kotlin` or `kotlin-platform-js` for example):
+
+```groovy
+compile project(path: ':my-new-mpp-module', configuration: 'jsRuntimeElements')
+compile project(path: ':my-new-mpp-module', configuration: 'jvmRuntimeElements')
+```
+
+If you try:
+```groovy
+compile project(':my-new-mpp-module')
+```
+
+It won't complain when preparing the project, but you won't be able to reach the code from the mpp-module.
+
+Also be sure to not apply the `kotlin-multiplatform` plugin when also applying other kotlin plugins like `kotlin` or `kotlin-platform-js`.
+Or you would get errors like:
+
+```
+> Failed to apply plugin [class 'org.jetbrains.kotlin.gradle.plugin.Kotlin2JsPluginWrapper']
+   > Cannot add extension with name 'kotlin', as there is an extension already registered with that name.
+```
+
+This can happen easily in `allprojects` or `subprojects` blocks.
+
 ## IDE plugin
 
 Download the IDE plugin build from TeamCity: ([link](https://teamcity.jetbrains.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Kotlin_dev_CompilerAllPlugins&tab=artifacts), log in as guest if you have no account). Then install the plugin from disk in IntelliJ IDEA.
