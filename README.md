@@ -217,7 +217,7 @@ To ensure consistency between source sets added to a compilation, additional che
 To make publishing and dependency resolution work, you should enable the experimental Gradle feature in `settings.gradle`:
 
 ```groovy
-enableFeaturePreview('GRADLE_METADATA`)
+enableFeaturePreview('GRADLE_METADATA')
 ```
 
 Then, to publish an MPP library, use the [`maven-publish` Gradle plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)
@@ -228,7 +228,7 @@ and provide proper group and version for the module:
 group 'com.example.mpplib'
 version '1.0.0'
 
-apply plugin: 'maven-publish`
+apply plugin: 'maven-publish'
 ```
 
 That's it! Publish it to some repository (e.g. to the local Maven repo with the task `publishToMavenLocal`).
