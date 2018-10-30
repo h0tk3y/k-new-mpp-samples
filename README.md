@@ -1,5 +1,7 @@
 # Kotlin New Multiplatform Projects 
 
+> ## This page is obsolete. Please refer to [the official documentation](http://kotlinlang.org/docs/reference/building-mpp-with-gradle.html).
+
 This repository contains general information and samples for the new model of Kotlin Multiplatform projects.
 
 ## Goals
