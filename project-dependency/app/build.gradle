@@ -1,6 +1,11 @@
-apply plugin: 'kotlin-multiplatform'
+plugins {
+	id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
+}
 
 kotlin {
+	targetFromPreset(presets.jvmWithJava)
+	js('js')
+
 	sourceSets {
 		commonMain {
 			dependencies {
@@ -18,10 +23,6 @@ kotlin {
 				implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
 			}
 		}
-	}
-	targets {
-		fromPreset(presets.jvmWithJava, 'jvm')
-		fromPreset(presets.js, 'js')
 	}
 }
 

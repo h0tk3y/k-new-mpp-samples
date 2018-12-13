@@ -1,37 +1,26 @@
-buildscript {
-    ext.kotlin_version = '1.3.0-rc-57'
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
 }
 
 repositories {
     mavenLocal()
-    jcenter()
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    jcenter()
 }
 
-apply plugin: 'kotlin-multiplatform'
-
 kotlin {
-    targets {
-        fromPreset(presets.macosX64, 'macosX64') {
-            compilations.main {
-                cinterops {
-                    interopName {
-                        packageName 'example.cinterop.stdio'
-                        extraOpts '-nodefaultlibs'
-                        // defFile 'custom/path/to/def/file.def'
-                    }
+    macosX64() {
+        compilations.main {
+            cinterops {
+                interopName {
+                    packageName 'example.cinterop.stdio'
+                    extraOpts '-nodefaultlibs'
+                    // defFile 'custom/path/to/def/file.def'
                 }
             }
         }
     }
+
     sourceSets {
         commonMain {
             dependencies {

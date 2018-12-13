@@ -1,32 +1,22 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
+}
+
 group 'com.example'
 version '1.0'
 
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70-dev-1648"
-    }
-}
-
-apply plugin: 'kotlin-multiplatform'
-
 repositories {
     mavenLocal()
-    jcenter()
     maven { url "https://dl.bintray.com/kotlin/kotlinx.html/" }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    jcenter()
 }
 
 kotlin {
-    targets {
-        fromPreset(presets.jvm, 'jvmWithoutJava')
-        fromPreset(presets.jvmWithJava, 'jvmWithJava')
-        fromPreset(presets.js, 'js')
-    }
+    jvm('jvmWithoutJava')
+    targetFromPreset(presets.jvmWithJava)
+    js()
+
     sourceSets {
         commonMain {
             dependencies {
@@ -61,12 +51,4 @@ kotlin {
             }
         }
     }
-}
-
-kotlin.sourceSets.each {
-    println it.name
-    it.dependsOn.each {
-        println '->' + it.name
-    }
-    println '---'
 }

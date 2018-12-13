@@ -31,6 +31,10 @@ dependencies {
 }
 
 kotlin {
+    android('androidApp')
+    jvm('jvmApp')
+    js('jsApp')
+
 	sourceSets {
         commonMain {
             dependencies {
@@ -49,10 +53,4 @@ kotlin {
             }
         }
 	}
-
-    targets {
-        fromPreset(presets.android, 'androidApp')
-        fromPreset(presets.jvm, 'jvmApp')
-        fromPreset(presets.js, 'jsApp')
-    }
 }

@@ -1,19 +1,10 @@
-group 'com.example'
-version '1.0'
-
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-    }
-    dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-dev-496'
-    }
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
+    id "maven-publish"
 }
 
-apply plugin: 'kotlin-multiplatform'
-apply plugin: 'maven-publish'
+group 'com.example'
+version '1.0'
 
 repositories {
     mavenLocal()
@@ -22,30 +13,29 @@ repositories {
 }
 
 kotlin {
-    targets {
-        fromPreset(presets.jvm, 'jvm6')
-        fromPreset(presets.js, 'nodeJs')
-        fromPreset(presets.mingwX64, 'windows')
-        fromPreset(presets.linuxX64, 'linux')
-        fromPreset(presets.macosX64, 'mac')
-    }
+    jvm("jvm6")
+    js("nodeJs")
+    mingwX64("windows")
+    linuxX64("linux")
+    macosX64("mac")
+
     sourceSets {
         commonMain {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
         }
-        jvm6Main {
+
+        jvm("jvm6").compilations.main.defaultSourceSet {
             dependencies {
                 api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
             }
         }
-        nativeCommonMain { }
+
+        nativeMain
 
         configure([linuxMain, windowsMain, macMain]) {
-            dependsOn nativeCommonMain
+            dependsOn nativeMain
         }
     }
 }
-
-kotlin.sourceSets.each { println it.kotlin.srcDirs }

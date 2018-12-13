@@ -1,51 +1,44 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
+}
+1
 group 'com.example.withJava'
 version '1.0'
 
-buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-dev-496'
-	}
-}
-
-apply plugin: 'kotlin-multiplatform'
-apply plugin: 'maven-publish'
-
 repositories {
     mavenLocal()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     jcenter()
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 }
 
 kotlin {
-    targets {
-        fromPreset(presets.jvmWithJava, 'jvm')
-        fromPreset(presets.js, 'nodeJs')
-    }
+    def jvm = targetFromPreset(presets.jvmWithJava, 'jvm')
+    js('nodeJs')
 
     sourceSets {
+        commonMain {
+            dependencies {
+                api kotlin('stdlib-common')
+            }
+        }
+
         jvmMain {
             dependencies {
                 api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
+                implementation kotlin('stdlib')
             }
         }
+
         nodeJsMain {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
+                implementation kotlin('stdlib-js')
             }
         }
-        sharedApi {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-            }
-        }
-    }
 
-    configure([targets.jvm, targets.nodeJs]) {
-        compilations.main.source(sourceSets.sharedApi)
+        sharedApi
+
+        configure([jvm, js('nodeJs')]) {
+            compilations.main.defaultSourceSet.dependsOn(sourceSets.sharedApi)
+        }
     }
 }

@@ -33,22 +33,25 @@ dependencies {
 }
 
 kotlin {
+    android('androidLib')
+    jvm('jvmLib')
+    js('jsLib')
+
     sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+            }
+        }
         jvmLibMain {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+                implementation kotlin('stdlib')
             }
         }
         jsLibMain {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
+                implementation kotlin('stdlib-js')
             }
         }
-    }
-
-    targets {
-        fromPreset(presets.android, 'androidLib')
-        fromPreset(presets.jvm, 'jvmLib')
-        fromPreset(presets.js, 'jsLib')
     }
 }

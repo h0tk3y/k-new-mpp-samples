@@ -1,1 +1,8 @@
+pluginManagement {
+    repositories {
+        maven { setUrl("https://kotlin.bintray.com/kotlin-eap") }
+        gradlePluginPortal()
+    }
+}
+
 enableFeaturePreview('GRADLE_METADATA')

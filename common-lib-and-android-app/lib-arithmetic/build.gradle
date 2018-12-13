@@ -1,37 +1,38 @@
 group 'com.example.lib.arithmetic'
 version '1.0'
 
-buildscript {
-	repositories {
-		mavenLocal()
-		jcenter()
-		maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-	}
-	dependencies {
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-dev-496'
-	}
+plugins {
+	id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
+	id "maven-publish"
 }
 
 repositories {
 	mavenLocal()
+	maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
 	jcenter()
-	maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 }
 
 apply plugin: 'kotlin-multiplatform'
 
 kotlin {
+	jvm()
+	js()
+
     sourceSets {
         commonMain {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+                implementation kotlin('stdlib-common')
             }
         }
-    }
-	targets {
-		fromPreset(presets.jvm, 'jvm')
-		fromPreset(presets.js, 'js')
+		jvmMain {
+			dependencies {
+				implementation kotlin('stdlib')
+			}
+		}
+		jsMain {
+			dependencies {
+				implementation kotlin('stdlib-js')
+			}
+		}
 	}
 }
-
-apply plugin: 'maven-publish'

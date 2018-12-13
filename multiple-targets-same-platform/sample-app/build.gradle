@@ -1,38 +1,21 @@
-buildscript {
-    repositories {
-        jcenter()
-        mavenLocal()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-    }
-    dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-dev-496'
-    }
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
 }
-
-repositories {
-    jcenter()
-    mavenLocal()
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-}
-
-apply plugin: 'kotlin-multiplatform'
 
 def testFrameworkAttribute = Attribute.of('com.example.testFramework', String)
 
 kotlin {
-    targets {
-        fromPreset(presets.jvm, 'a') {
-            attributes.attribute(testFrameworkAttribute, 'junit')
-        }
-        fromPreset(presets.jvm, 'b') {
-            attributes.attribute(testFrameworkAttribute, 'testng')
-        }
+    jvm('a') {
+        attributes.attribute(testFrameworkAttribute, 'junit')
     }
-}
+    jvm('b') {
+        attributes.attribute(testFrameworkAttribute, 'testng')
+    }
 
-kotlin.sourceSets {
-    commonMain.dependencies {
-        implementation project(':sample-lib')
-        implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    sourceSets {
+        commonMain.dependencies {
+            implementation project(':sample-lib')
+            implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+        }
     }
 }

@@ -1,15 +1,6 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-dev-496"
-    }
+plugins {
+    id "org.jetbrains.kotlin.multiplatform" version "1.3.20-eap-25"
 }
-
-apply plugin: 'kotlin-multiplatform'
 
 repositories {
     mavenLocal()
@@ -21,6 +12,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation kotlin('stdlib-common')
                 implementation 'com.example:sample-lib:1.0'
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib'
             }
@@ -31,25 +23,28 @@ kotlin {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
             }
         }
-        jvm6Main.dependsOn allJvm
-        jvm8Main.dependsOn allJvm
+        nodeJsMain {
+            dependencies {
+                implementation kotlin('stdlib-js')
+            }
+        }
     }
 
-    targets {
-        fromPreset(presets.jvm, 'jvm6') {
-            compilations.main.source(sourceSets.allJvm)
-        }
-        fromPreset(presets.jvm, 'jvm8') {
-            compilations.main.source(sourceSets.allJvm)
-        }
-        fromPreset(presets.js, 'nodeJs')
+    jvm("jvm6") {
+        compilations.main.defaultSourceSet.dependsOn(sourceSets.allJvm)
+    }
 
-        fromPreset(presets.linuxX64, 'linux')
-        fromPreset(presets.mingwX64, 'windows')
-        fromPreset(presets.macosX64, 'mac')
+    jvm("jvm8") {
+        compilations.main.defaultSourceSet.dependsOn(sourceSets.allJvm)
+    }
 
-        configure([linux, windows, mac]) {
-            compilations.main.outputKinds('EXECUTABLE')
-        }
+    js("nodeJs")
+
+    def windows = mingwX64("windows")
+    def linux = linuxX64("linux")
+    def mac = macosX64("mac")
+
+    configure([linux, windows, mac]) {
+        compilations.main.outputKinds('EXECUTABLE')
     }
 }
