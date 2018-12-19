@@ -1,10 +1,10 @@
-include 'app'
-
 pluginManagement {
     repositories {
         maven { setUrl("https://kotlin.bintray.com/kotlin-eap") }
         gradlePluginPortal()
     }
 }
+
+include 'app'
 
 enableFeaturePreview('GRADLE_METADATA')
